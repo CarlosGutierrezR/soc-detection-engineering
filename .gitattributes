@@ -1,0 +1,13 @@
+﻿# Normalize text files in the repository
+* text=auto
+
+# Documentation and configuration
+*.md text eol=lf
+*.xml text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Repository metadata
+.gitignore text eol=lf
+.gitattributes text eol=lf
