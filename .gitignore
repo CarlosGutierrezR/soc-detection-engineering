@@ -1,0 +1,27 @@
+﻿# Secrets and local environment
+.env
+.env.*
+!.env.example
+
+# Python local artifacts
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# IDE / editor
+.vscode/
+.idea/
+
+# Operating system
+Thumbs.db
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Raw SOC evidence must not be published directly
+evidence/raw/
