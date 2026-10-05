@@ -51,3 +51,4 @@ Comando controlado:
 powershell.exe -NoProfile -EncodedCommand <BASE64>
 
 
+```
