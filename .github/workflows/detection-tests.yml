@@ -1,0 +1,29 @@
+name: Detection rule tests
+
+on:
+  push:
+    paths:
+      - "detection-rules/**"
+      - "tests/**"
+      - ".github/workflows/detection-tests.yml"
+  pull_request:
+    paths:
+      - "detection-rules/**"
+      - "tests/**"
+      - ".github/workflows/detection-tests.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install validators
+        run: sudo apt-get update && sudo apt-get install -y libxml2-utils pcre2-utils
+
+      - name: Validate XML well-formedness
+        run: xmllint --noout detection-rules/wazuh-rules.xml
+
+      - name: Run PCRE2 contract tests
+        run: bash tests/test-regex.sh
