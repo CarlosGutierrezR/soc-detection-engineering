@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="t d">
+  <title id="t">El gap: misma telemetría, distinta clasificación</title>
+  <desc id="d">-EncodedCommand activa la regla nativa 92057 de nivel 12; -enc cae en la regla genérica 92027 de nivel 4 porque el token enc no está en la alternancia de 92057.</desc>
+  <style>
+    .f{font-family:"Segoe UI",-apple-system,Helvetica,Arial,sans-serif}
+    .m{font-family:Consolas,"SFMono-Regular",Menlo,monospace}
+  </style>
+  <rect width="1280" height="560" rx="18" fill="#0b1220"/>
+  <text x="48" y="58" class="f" font-size="28" font-weight="700" fill="#e6edf3">El gap: misma telemetría, distinta clasificación</text>
+  <text x="48" y="90" class="f" font-size="18" fill="#9fb0c8">Ambos comandos ejecutan el mismo payload Base64 benigno y generan Sysmon Event ID 1 en Wazuh.</text>
+
+  <!-- row 1 -->
+  <rect x="48" y="118" width="720" height="70" rx="12" fill="#111a2e" stroke="#24324d"/>
+  <text x="72" y="161" class="m" font-size="19" fill="#e6edf3">powershell.exe -NoProfile <tspan fill="#38bdf8" font-weight="700">-EncodedCommand</tspan> &lt;BASE64&gt;</text>
+  <path d="M780 153 H850" stroke="#5b6b85" stroke-width="3"/><path d="M850 153 l-12 -8 v16z" fill="#5b6b85"/>
+  <rect x="862" y="118" width="370" height="70" rx="12" fill="#0f3a2c" stroke="#1f7a5a"/>
+  <text x="884" y="148" class="f" font-size="20" font-weight="700" fill="#6ee7b7">Regla 92057 · nivel 12</text>
+  <text x="884" y="174" class="f" font-size="16" fill="#a7f3d0">Detección específica de encoded command</text>
+
+  <!-- row 2 -->
+  <rect x="48" y="206" width="720" height="70" rx="12" fill="#111a2e" stroke="#24324d"/>
+  <text x="72" y="249" class="m" font-size="19" fill="#e6edf3">powershell.exe -NoProfile <tspan fill="#fbbf24" font-weight="700">-enc</tspan> &lt;BASE64&gt;</text>
+  <path d="M780 241 H850" stroke="#5b6b85" stroke-width="3"/><path d="M850 241 l-12 -8 v16z" fill="#5b6b85"/>
+  <rect x="862" y="206" width="370" height="70" rx="12" fill="#3a1f14" stroke="#9a4a2a"/>
+  <text x="884" y="236" class="f" font-size="20" font-weight="700" fill="#fdba74">Regla 92027 · nivel 4</text>
+  <text x="884" y="262" class="f" font-size="16" fill="#fed7aa">Solo PowerShell genérico (gap)</text>
+
+  <!-- root cause -->
+  <line x1="48" y1="310" x2="1232" y2="310" stroke="#24324d" stroke-width="2" stroke-dasharray="6 6"/>
+  <text x="48" y="352" class="f" font-size="22" font-weight="700" fill="#e6edf3">Causa raíz verificada en la regla nativa 92057 (Wazuh 4.14.7)</text>
+  <text x="48" y="384" class="m" font-size="16" fill="#9fb0c8">(?i)powershell\.exe.+\-\b(encodedcommand|e|ea|ec|encodeda|encode|en|enco)\b</text>
+
+  <g class="m" font-size="17" font-weight="700">
+    <rect x="48"  y="410" width="180" height="42" rx="21" fill="#10342a" stroke="#1f6b52"/><text x="138" y="437" text-anchor="middle" fill="#a7f3d0">encodedcommand</text>
+    <rect x="240" y="410" width="58"  height="42" rx="21" fill="#10342a" stroke="#1f6b52"/><text x="269" y="437" text-anchor="middle" fill="#a7f3d0">e</text>
+    <rect x="310" y="410" width="66"  height="42" rx="21" fill="#10342a" stroke="#1f6b52"/><text x="343" y="437" text-anchor="middle" fill="#a7f3d0">ea</text>
+    <rect x="388" y="410" width="66"  height="42" rx="21" fill="#10342a" stroke="#1f6b52"/><text x="421" y="437" text-anchor="middle" fill="#a7f3d0">ec</text>
+    <rect x="466" y="410" width="120" height="42" rx="21" fill="#10342a" stroke="#1f6b52"/><text x="526" y="437" text-anchor="middle" fill="#a7f3d0">encodeda</text>
+    <rect x="598" y="410" width="104" height="42" rx="21" fill="#10342a" stroke="#1f6b52"/><text x="650" y="437" text-anchor="middle" fill="#a7f3d0">encode</text>
+    <rect x="714" y="410" width="66"  height="42" rx="21" fill="#10342a" stroke="#1f6b52"/><text x="747" y="437" text-anchor="middle" fill="#a7f3d0">en</text>
+    <rect x="792" y="410" width="84"  height="42" rx="21" fill="#10342a" stroke="#1f6b52"/><text x="834" y="437" text-anchor="middle" fill="#a7f3d0">enco</text>
+    <rect x="900" y="410" width="150" height="42" rx="21" fill="#3a1414" stroke="#f87171" stroke-width="2" stroke-dasharray="6 4"/><text x="975" y="437" text-anchor="middle" fill="#fca5a5">enc  ✗ falta</text>
+  </g>
+  <text x="48" y="498" class="f" font-size="17" fill="#9fb0c8">Con el <tspan class="m" fill="#e6edf3">\b</tspan> final, <tspan class="m" fill="#e6edf3">-enc</tspan> no coincide con ningún token de la lista: el evento llega a Wazuh, pero solo lo clasifica la regla genérica.</text>
+  <text x="48" y="528" class="f" font-size="15" fill="#6b7d99">Fuente: ruleset/rules/0800-sysmon_id_1.xml, regla 92057, inspeccionada en el laboratorio y en el repositorio oficial wazuh/wazuh v4.14.7.</text>
+</svg>
