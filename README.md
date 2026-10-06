@@ -9,6 +9,7 @@
   <img src="https://img.shields.io/badge/MITRE%20ATT%26CK-T1059.001-c2410c" alt="MITRE ATT&CK T1059.001">
   <img src="https://img.shields.io/badge/V2-validada%20en%20laboratorio-15803d" alt="V2 validada en laboratorio">
   <img src="https://img.shields.io/badge/V3-en%20investigaci%C3%B3n-a16207" alt="V3 en investigación">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/licencia-MIT-6b7280" alt="Licencia MIT"></a>
 </p>
 
 <p align="center">
@@ -226,4 +227,16 @@ Start with the [full case study](docs/LAB-DET-001-case-study.md).
 
 Todos los payloads son benignos (`Write-Output "SOC-DETECTION-TEST-…"`) y se ejecutaron solo en un laboratorio autorizado. No se publican capturas ni logs con identificadores operativos.
 
-<p align="center"><sub>Autor: <a href="https://github.com/CarlosGutierrezR">Carlos Gutiérrez</a> · Ingeniero de Sistemas · Máster en Ciberseguridad</sub></p>
+---
+
+## 📄 Licencia
+
+Publicado bajo licencia [MIT](LICENSE).
+
+---
+
+<p align="center">
+  <b>Carlos Gutiérrez</b> · Ingeniero de Sistemas · Máster en Ciberseguridad<br>
+  <a href="https://www.linkedin.com/in/carlosgutierrez-rondon/"><img src="https://img.shields.io/badge/LinkedIn-carlosgutierrez--rondon-0a66c2?logo=linkedin&logoColor=white" alt="LinkedIn"></a>
+  <a href="https://github.com/CarlosGutierrezR"><img src="https://img.shields.io/badge/GitHub-CarlosGutierrezR-24292f?logo=github&logoColor=white" alt="GitHub"></a>
+</p>
