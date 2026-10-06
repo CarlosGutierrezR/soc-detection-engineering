@@ -7,7 +7,7 @@ This table records the environment relevant to the observed LAB-DET-001 behavior
 | Wazuh Manager | 4.14.7-1 | Verified in SOC baseline used by this project |
 | Wazuh Agent on Windows endpoint | 4.14.7-1 | Verified in SOC baseline used by this project |
 | Sysmon schema | 4.91 | Verified in SOC baseline used by this project |
-| Windows endpoint | Windows 11 Pro 25H2, build family 26200 | Verified in SOC baseline; Sysmon event showed powershell.exe file version 10.0.26100.9278 |
+| Windows endpoint | Windows 11 Pro 25H2 | Edition/release verified in SOC baseline; exact OS build was not re-captured in LAB-DET-001. Sysmon event showed powershell.exe file version 10.0.26100.9278 |
 | Windows PowerShell | `powershell.exe` | Exact `$PSVersionTable.PSVersion` was not captured during LAB-DET-001 and remains a pending evidence item |
 | Native Wazuh rule file | `/var/ossec/ruleset/rules/0800-sysmon_id_1.xml` | Directly inspected during LAB-DET-001 |
 | Native rule | `92057` | Directly inspected |
