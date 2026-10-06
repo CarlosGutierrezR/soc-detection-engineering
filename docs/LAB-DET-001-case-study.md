@@ -148,7 +148,7 @@ Windows PowerShell expects the encoded command as a Unicode/UTF-16LE byte repres
 | TC-01 | Native positive | `-EncodedCommand <BASE64>` |
 | TC-02 | Gap check | `-enc <BASE64>` |
 | TC-02-R1 | Custom V1 positive | `-enc <BASE64>` after V1 rule |
-| NEG-V1 | False-positive check | `-enc` with no argument |
+| NEG-V1 | Precision-boundary check | `-enc` with no argument |
 | TC-02-V2 | Final positive | `-enc <BASE64>` after V2 tuning |
 | NEG-V2 | Final negative | `-enc` with no argument after V2 tuning |
 
@@ -386,7 +386,7 @@ active
 
 ---
 
-## 13. Step 7 — V1 positive result and false-positive discovery
+## 13. Step 7 — V1 positive result and precision issue discovery
 
 ### Positive
 
@@ -515,7 +515,7 @@ The custom rule `100100` was absent.
 
 **Result: PASS.**
 
-The false positive introduced by V1 was corrected.
+The overbroad V1 match was corrected.
 
 **Evidence:** E8/E9.
 
@@ -627,7 +627,7 @@ LAB-DET-001 satisfies the project-level functional requirements demonstrated in 
 - rule validation successful;
 - positive test passed;
 - negative test passed;
-- false positive found and tuned;
+- overbroad precision match found and tuned;
 - ATT&CK mapping documented;
 - limitations documented;
 - sanitized evidence prepared for portfolio review;
