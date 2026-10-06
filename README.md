@@ -116,6 +116,12 @@ Se creó una regla propia en `/var/ossec/etc/rules/`, **sin editar el ruleset na
 
 > **Sobre NEG-V1:** un `-enc` vacío puede seguir siendo sospechoso. El problema era semántico: una regla que afirma «ejecución codificada» no debe dispararse cuando no hay payload codificado.
 
+**Prueba real en Wazuh (TC-02-V2, datos operativos ocultos):**
+
+<p align="center">
+  <img src="evidence/lab-det-001/screenshots/e7-v2-positive-alert-list.png" alt="Lista de alertas de Wazuh: la regla 100100 de nivel 12 aparece junto a alertas nativas" width="100%">
+</p>
+
 Matriz de referencia: [docs/coverage-matrix.md](docs/coverage-matrix.md) · Procedimientos: [tests/test-cases.md](tests/test-cases.md)
 
 ---
@@ -141,14 +147,16 @@ El laboratorio está segmentado con pfSense y reutiliza un SOC permanente. Detal
 
 | Elemento | Estado |
 |---|---|
-| [Alerta real de Wazuh saneada (TC-02, JSON)](evidence/lab-det-001/tc02-native-alert-sanitized.json) | ✅ Publicada |
+| [Alerta real de Wazuh saneada — gap nativo (TC-02, JSON)](evidence/lab-det-001/tc02-native-alert-sanitized.json) | ✅ Publicada |
+| [Alerta real de Wazuh saneada — regla 100100 (TC-02-V2, JSON)](evidence/lab-det-001/tc02-v2-custom-alert-sanitized.json) | ✅ Publicada |
+| Capturas reales con datos ocultos: [línea de comandos](evidence/lab-det-001/screenshots/e6-v2-positive-commandline.png) · [campos de la regla](evidence/lab-det-001/screenshots/e7-v2-positive-rule-fields.png) · [lista de alertas](evidence/lab-det-001/screenshots/e7-v2-positive-alert-list.png) | ✅ Publicadas |
 | [Procedencia de la evidencia](evidence/README.md) | ✅ Documentada |
 | CI en GitHub Actions: XML bien formado + pruebas PCRE2 positivas, negativas y de límites de V2 | ✅ En verde |
 | [Análisis de incoherencias del ruleset oficial (92057 vs 92059/92071)](docs/upstream-review.md) | ✅ Documentado |
 | Salidas de `wazuh-logtest` | 🕒 Pendiente |
 | Versión exacta de PowerShell (`$PSVersionTable`) | 🕒 Pendiente |
 
-Las capturas originales no se publican porque contienen identificadores operativos del laboratorio (IPs, usuarios, GUIDs, hashes). Los SVG de `evidence/` son resúmenes visuales, no sustituyen a la evidencia primaria.
+Las capturas se publican recortadas y con los identificadores operativos ocultos (IPs, nombres de equipo, usuario, GUIDs, hashes); las originales no se publican. Los SVG de `evidence/` son resúmenes visuales, no sustituyen a la evidencia primaria.
 
 ---
 
@@ -225,7 +233,7 @@ Start with the [full case study](docs/LAB-DET-001-case-study.md).
 
 ## 🔐 Seguridad y publicación
 
-Todos los payloads son benignos (`Write-Output "SOC-DETECTION-TEST-…"`) y se ejecutaron solo en un laboratorio autorizado. No se publican capturas ni logs con identificadores operativos.
+Todos los payloads son benignos (`Write-Output "SOC-DETECTION-TEST-…"`) y se ejecutaron solo en un laboratorio autorizado. No se publican capturas ni logs con identificadores operativos sin ocultar.
 
 ---
 

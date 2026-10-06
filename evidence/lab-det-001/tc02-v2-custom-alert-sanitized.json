@@ -1,0 +1,92 @@
+{
+  "_provenance": "Sanitized from the real Wazuh alert document exported from Threat Hunting > Document Details (JSON) for TC-02-V2, the final V2 positive test. Operational identifiers (IP, hostnames, domain, username, agent/document IDs, GUIDs, hashes, process/thread IDs, logon ID, event record ID) were replaced. The duplicated 'message' and 'full_log' fields were removed because they repeat the same identifiers. Backslash escaping in paths was normalized for readability. The Base64 payload is kept unchanged: it decodes (UTF-16LE) to the benign marker Write-Output \"SOC-DETECTION-TEST-TC02-V2\".",
+  "_evidence_ids": [
+    "E6",
+    "E7"
+  ],
+  "_index": "wazuh-alerts-4.x-2026.10.06",
+  "timestamp": "2026-10-06T09:33:29.630+0000",
+  "rule": {
+    "id": "100100",
+    "level": 12,
+    "description": "LAB-DET-001: PowerShell spawned PowerShell using the -enc alias for encoded command execution",
+    "groups": [
+      "local",
+      "windows",
+      "sysmon",
+      "lab_det_001"
+    ],
+    "mitre": {
+      "id": [
+        "T1059.001"
+      ],
+      "tactic": [
+        "Execution"
+      ],
+      "technique": [
+        "PowerShell"
+      ]
+    },
+    "firedtimes": 1,
+    "mail": true
+  },
+  "agent": {
+    "id": "<REDACTED>",
+    "name": "<WINDOWS-ENDPOINT>",
+    "ip": "<PRIVATE-IP>"
+  },
+  "manager": {
+    "name": "<WAZUH-MANAGER>"
+  },
+  "decoder": {
+    "name": "windows_eventchannel"
+  },
+  "location": "EventChannel",
+  "input": {
+    "type": "log"
+  },
+  "data": {
+    "win": {
+      "system": {
+        "providerName": "Microsoft-Windows-Sysmon",
+        "providerGuid": "<REDACTED-GUID>",
+        "eventID": "1",
+        "version": "5",
+        "level": "4",
+        "task": "1",
+        "opcode": "0",
+        "channel": "Microsoft-Windows-Sysmon/Operational",
+        "computer": "<WINDOWS-ENDPOINT>.<LAB-DOMAIN>",
+        "severityValue": "INFORMATION",
+        "systemTime": "2026-10-06T09:33:29.0321018Z",
+        "eventRecordID": "<REDACTED>",
+        "processID": "<REDACTED>",
+        "threadID": "<REDACTED>"
+      },
+      "eventdata": {
+        "utcTime": "2026-10-06 09:33:28.430",
+        "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "originalFileName": "PowerShell.EXE",
+        "description": "Windows PowerShell",
+        "product": "Microsoft® Windows® Operating System",
+        "company": "Microsoft Corporation",
+        "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+        "commandLine": "\"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -enc VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAiAFMATwBDAC0ARABFAFQARQBDAFQASQBPAE4ALQBUAEUAUwBUAC0AVABDADAAMgAtAFYAMgAiAA==",
+        "currentDirectory": "C:\\WINDOWS\\system32\\",
+        "integrityLevel": "High",
+        "parentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "parentCommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\"",
+        "user": "<WINDOWS-ENDPOINT>\\<LAB-USER>",
+        "parentUser": "<WINDOWS-ENDPOINT>\\<LAB-USER>",
+        "processGuid": "<REDACTED-GUID>",
+        "processId": "<REDACTED>",
+        "parentProcessGuid": "<REDACTED-GUID>",
+        "parentProcessId": "<REDACTED>",
+        "logonGuid": "<REDACTED-GUID>",
+        "logonId": "<REDACTED>",
+        "terminalSessionId": "1",
+        "hashes": "SHA256=<REDACTED>"
+      }
+    }
+  }
+}

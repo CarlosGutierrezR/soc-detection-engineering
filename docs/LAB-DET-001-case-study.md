@@ -594,7 +594,7 @@ The primary evidence was captured directly from the controlled executions and Wa
 
 The evidence folder includes presentation summaries plus a sanitized JSON derived from the real TC-02 `alerts.json` record. The SVGs are not presented as primary technical evidence.
 
-Raw screenshots are retained outside the public repository because they contain operational lab metadata. Reproducible `wazuh-logtest` captures are still pending and are explicitly tracked as evidence hardening rather than silently claimed as complete.
+For the final V2 positive (E6/E7), a sanitized copy of the real alert document and three redacted Wazuh screenshots are also published in `evidence/lab-det-001/`. Raw screenshots remain outside the public repository because they contain operational lab metadata. Reproducible `wazuh-logtest` captures are still pending and are explicitly tracked as evidence hardening rather than silently claimed as complete.
 
 ---
 
