@@ -6,6 +6,8 @@ pattern='(?i)powershell\.exe.*\s-enc\s+[A-Za-z0-9+/]{8,}={0,2}(?:\s|$)'
 positive=(
   '"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -enc VwByAGkAdABlAA=='
   'powershell.exe -NoProfile -ENC VwByAGkAdABlAA=='
+  # Real TC-02-V2 command line observed in Wazuh (evidence/lab-det-001/tc02-v2-custom-alert-sanitized.json)
+  '"C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -enc VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAiAFMATwBDAC0ARABFAFQARQBDAFQASQBPAE4ALQBUAEUAUwBUAC0AVABDADAAMgAtAFYAMgAiAA=='
 )
 
 negative=(
