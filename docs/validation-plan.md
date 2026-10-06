@@ -2,38 +2,38 @@
 
 ## Objective
 
-Validate that the custom rule detects the `-enc` encoded-command alias without classifying an empty `-enc` invocation as a valid encoded-command execution.
+Validate that V2 detects the observed `-enc <BASE64>` gap while avoiding an overbroad semantic claim when `-enc` has no payload.
 
 ## Acceptance criteria
 
-The use case is considered functionally validated when:
+V2 is functionally accepted when:
 
-1. a controlled `-enc <BASE64>` execution produces Sysmon Event ID 1;
+1. controlled `-enc <BASE64>` produces Sysmon Event ID 1;
 2. Wazuh assigns custom rule `100100` at level 12;
-3. an `-enc` invocation without an argument does not trigger rule `100100`;
-4. Wazuh Manager remains operational after loading the rule;
+3. empty `-enc` does not trigger rule `100100`;
+4. Wazuh Manager remains operational after the rule change;
 5. Wazuh configuration/ruleset validation returns exit code 0.
 
-## Final V2 observations
+All five criteria were observed in the controlled final V2 acceptance run.
 
-| Check | Observed result | Status |
-|---|---|---|
-| Wazuh ruleset/config test | `wazuh-analysisd -t` -> exit code 0 | PASS |
-| Manager after restart | `active` | PASS |
-| Positive: `-enc <BASE64>` | rule `100100`, level 12 | PASS |
-| Negative: `-enc` without payload | rule `92027`, level 4; no `100100` | PASS |
+## Metrics boundary
 
-## Controlled-sample metrics
+The final acceptance pair contained one positive and one negative precision case. That is sufficient to prove the specific acceptance behavior, but it is **not** sufficient to estimate a production false-positive rate.
 
-For the final V2 validation set directly executed after the tuning change:
+A longer normal-activity observation period remains pending.
 
-- positive tests: 1;
-- positive detections by rule `100100`: 1;
-- negative tests targeting the V1 false positive: 1;
-- negative tests incorrectly classified by rule `100100`: 0.
+## Reproducibility hardening
 
-These counts demonstrate the intended behavior in the controlled test set only. They are not a production false-positive rate.
+Still pending:
+
+- capture `wazuh-logtest` output for representative native and custom cases;
+- record exact `$PSVersionTable`;
+- execute the V3 prefix research matrix before broadening the rule.
+
+## CI
+
+Repository CI validates XML well-formedness and the current PCRE2 contract using deterministic positive/negative strings. These tests support regression control but do not replace Wazuh's own rules engine.
 
 ## Rollback
 
-The custom rules directory was backed up before the change. Rollback consists of removing the custom LAB-DET-001 rule or restoring the pre-change custom-rules backup, followed by ruleset validation and a controlled manager restart.
+The custom-rules directory was backed up before the change. Rollback consists of removing the LAB-DET-001 custom rule or restoring the pre-change backup, validating the ruleset, restarting Wazuh Manager in a controlled manner, and confirming service health.
