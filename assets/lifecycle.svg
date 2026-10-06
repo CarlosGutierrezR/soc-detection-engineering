@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="492" viewBox="0 0 1280 492" role="img" aria-labelledby="t d">
+<title id="t">Ciclo de ingeniería de detección de LAB-DET-001</title>
+<desc id="d">Ocho pasos: hipótesis, línea base, reproducir gap, causa raíz, regla V1, problema de precisión, ajuste V2 y revalidación.</desc>
+<style>.f{font-family:"Segoe UI",-apple-system,Helvetica,Arial,sans-serif}</style>
+<rect width="1280" height="492" rx="18" fill="#0b1220"/>
+<text x="48" y="58" class="f" font-size="28" font-weight="700" fill="#e6edf3">Ciclo de ingeniería: no basta con que la regla «salte»</text>
+<rect x="48" y="96" width="272" height="150" rx="14" fill="#111a2e" stroke="#24324d" stroke-width="2"/>
+<circle cx="82" cy="132" r="18" fill="#38bdf8"/>
+<text x="82" y="138" text-anchor="middle" class="f" font-size="17" font-weight="700" fill="#0b1220">1</text>
+<text x="112" y="139" class="f" font-size="21" font-weight="700" fill="#e6edf3">Hipótesis</text>
+<text x="70" y="186" class="f" font-size="18" fill="#9fb0c8">¿-enc se clasifica igual</text>
+<text x="70" y="212" class="f" font-size="18" fill="#9fb0c8">que -EncodedCommand?</text>
+<path d="M324 171.0 h20" stroke="#5b6b85" stroke-width="3"/><path d="M348 171.0 l-10 -7 v14z" fill="#5b6b85"/>
+<rect x="352" y="96" width="272" height="150" rx="14" fill="#111a2e" stroke="#24324d" stroke-width="2"/>
+<circle cx="386" cy="132" r="18" fill="#38bdf8"/>
+<text x="386" y="138" text-anchor="middle" class="f" font-size="17" font-weight="700" fill="#0b1220">2</text>
+<text x="416" y="139" class="f" font-size="21" font-weight="700" fill="#e6edf3">Línea base</text>
+<text x="374" y="186" class="f" font-size="18" fill="#9fb0c8">PowerShell benigno</text>
+<text x="374" y="212" class="f" font-size="18" fill="#9fb0c8">→ 92027 · nivel 4</text>
+<path d="M628 171.0 h20" stroke="#5b6b85" stroke-width="3"/><path d="M652 171.0 l-10 -7 v14z" fill="#5b6b85"/>
+<rect x="656" y="96" width="272" height="150" rx="14" fill="#111a2e" stroke="#24324d" stroke-width="2"/>
+<circle cx="690" cy="132" r="18" fill="#38bdf8"/>
+<text x="690" y="138" text-anchor="middle" class="f" font-size="17" font-weight="700" fill="#0b1220">3</text>
+<text x="720" y="139" class="f" font-size="21" font-weight="700" fill="#e6edf3">Reproducir gap</text>
+<text x="678" y="186" class="f" font-size="18" fill="#9fb0c8">-enc &lt;BASE64&gt;</text>
+<text x="678" y="212" class="f" font-size="18" fill="#9fb0c8">→ 92027 · nivel 4</text>
+<path d="M932 171.0 h20" stroke="#5b6b85" stroke-width="3"/><path d="M956 171.0 l-10 -7 v14z" fill="#5b6b85"/>
+<rect x="960" y="96" width="272" height="150" rx="14" fill="#111a2e" stroke="#24324d" stroke-width="2"/>
+<circle cx="994" cy="132" r="18" fill="#38bdf8"/>
+<text x="994" y="138" text-anchor="middle" class="f" font-size="17" font-weight="700" fill="#0b1220">4</text>
+<text x="1024" y="139" class="f" font-size="21" font-weight="700" fill="#e6edf3">Causa raíz</text>
+<text x="982" y="186" class="f" font-size="18" fill="#9fb0c8">Token enc ausente</text>
+<text x="982" y="212" class="f" font-size="18" fill="#9fb0c8">en la regex de 92057</text>
+<rect x="48" y="310" width="272" height="150" rx="14" fill="#111a2e" stroke="#24324d" stroke-width="2"/>
+<circle cx="82" cy="346" r="18" fill="#38bdf8"/>
+<text x="82" y="352" text-anchor="middle" class="f" font-size="17" font-weight="700" fill="#0b1220">5</text>
+<text x="112" y="353" class="f" font-size="21" font-weight="700" fill="#e6edf3">Regla V1</text>
+<text x="70" y="400" class="f" font-size="18" fill="#9fb0c8">Regla propia 100100</text>
+<text x="70" y="426" class="f" font-size="18" fill="#9fb0c8">sin tocar reglas nativas</text>
+<path d="M324 385.0 h20" stroke="#5b6b85" stroke-width="3"/><path d="M348 385.0 l-10 -7 v14z" fill="#5b6b85"/>
+<rect x="352" y="310" width="272" height="150" rx="14" fill="#111a2e" stroke="#fbbf24" stroke-width="2"/>
+<circle cx="386" cy="346" r="18" fill="#fbbf24"/>
+<text x="386" y="352" text-anchor="middle" class="f" font-size="17" font-weight="700" fill="#0b1220">6</text>
+<text x="416" y="353" class="f" font-size="21" font-weight="700" fill="#e6edf3">Precisión</text>
+<text x="374" y="400" class="f" font-size="18" fill="#9fb0c8">V1 alertaba también</text>
+<text x="374" y="426" class="f" font-size="18" fill="#9fb0c8">con -enc sin argumento</text>
+<path d="M628 385.0 h20" stroke="#5b6b85" stroke-width="3"/><path d="M652 385.0 l-10 -7 v14z" fill="#5b6b85"/>
+<rect x="656" y="310" width="272" height="150" rx="14" fill="#111a2e" stroke="#24324d" stroke-width="2"/>
+<circle cx="690" cy="346" r="18" fill="#38bdf8"/>
+<text x="690" y="352" text-anchor="middle" class="f" font-size="17" font-weight="700" fill="#0b1220">7</text>
+<text x="720" y="353" class="f" font-size="21" font-weight="700" fill="#e6edf3">Ajuste V2</text>
+<text x="678" y="400" class="f" font-size="18" fill="#9fb0c8">Exige argumento</text>
+<text x="678" y="426" class="f" font-size="18" fill="#9fb0c8">con forma Base64</text>
+<path d="M932 385.0 h20" stroke="#5b6b85" stroke-width="3"/><path d="M956 385.0 l-10 -7 v14z" fill="#5b6b85"/>
+<rect x="960" y="310" width="272" height="150" rx="14" fill="#111a2e" stroke="#34d399" stroke-width="2"/>
+<circle cx="994" cy="346" r="18" fill="#34d399"/>
+<text x="994" y="352" text-anchor="middle" class="f" font-size="17" font-weight="700" fill="#0b1220">8</text>
+<text x="1024" y="353" class="f" font-size="21" font-weight="700" fill="#e6edf3">Revalidación</text>
+<text x="982" y="400" class="f" font-size="18" fill="#9fb0c8">Positivo ✓  Negativo ✓</text>
+<text x="982" y="426" class="f" font-size="18" fill="#9fb0c8">wazuh-analysisd -t = 0</text>
+<path d="M1184 246 v20 H184 v24" fill="none" stroke="#5b6b85" stroke-width="3"/><path d="M184 300 l-7 -10 h14z" fill="#5b6b85"/>
+</svg>

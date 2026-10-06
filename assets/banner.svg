@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="300" viewBox="0 0 1280 300" role="img" aria-labelledby="t d">
+  <title id="t">SOC Detection Engineering — LAB-DET-001</title>
+  <desc id="d">Ingeniería de detección con Wazuh, Sysmon y PowerShell. Caso LAB-DET-001: ejecución codificada de PowerShell.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#13213d"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#1d2b47" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <style>
+    .f{font-family:"Segoe UI",-apple-system,Helvetica,Arial,sans-serif}
+    .m{font-family:Consolas,"SFMono-Regular",Menlo,monospace}
+  </style>
+  <rect width="1280" height="300" rx="18" fill="url(#bg)"/>
+  <rect width="1280" height="300" rx="18" fill="url(#grid)" opacity=".55"/>
+  <rect x="0" y="0" width="8" height="300" rx="4" fill="#38bdf8"/>
+
+  <!-- shield icon -->
+  <g transform="translate(1040,58)">
+    <path d="M90 0 L170 30 V95 C170 145 135 175 90 190 C45 175 10 145 10 95 V30 Z" fill="#0f2a44" stroke="#38bdf8" stroke-width="3"/>
+    <path d="M55 98 L80 123 L128 72" fill="none" stroke="#34d399" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="64" y="78" class="f" font-size="18" font-weight="600" fill="#38bdf8" letter-spacing="3">DETECTION ENGINEERING · SOC LAB</text>
+  <text x="64" y="138" class="f" font-size="50" font-weight="700" fill="#e6edf3">SOC Detection Engineering</text>
+  <text x="64" y="182" class="f" font-size="24" fill="#9fb0c8">LAB-DET-001 · Ejecución codificada de PowerShell (<tspan class="m" fill="#fbbf24">-enc</tspan>)</text>
+
+  <g class="f" font-size="16" font-weight="600">
+    <rect x="64" y="216" width="150" height="36" rx="18" fill="#132a46" stroke="#2b4a73"/>
+    <text x="139" y="240" text-anchor="middle" fill="#cfe3ff">Wazuh 4.14.7</text>
+    <rect x="226" y="216" width="150" height="36" rx="18" fill="#132a46" stroke="#2b4a73"/>
+    <text x="301" y="240" text-anchor="middle" fill="#cfe3ff">Sysmon EID 1</text>
+    <rect x="388" y="216" width="196" height="36" rx="18" fill="#132a46" stroke="#2b4a73"/>
+    <text x="486" y="240" text-anchor="middle" fill="#cfe3ff">ATT&amp;CK T1059.001</text>
+    <rect x="596" y="216" width="196" height="36" rx="18" fill="#10342a" stroke="#1f6b52"/>
+    <text x="694" y="240" text-anchor="middle" fill="#a7f3d0">Regla 100100 · V2</text>
+  </g>
+</svg>
