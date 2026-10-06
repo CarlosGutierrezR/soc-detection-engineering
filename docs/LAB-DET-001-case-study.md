@@ -586,7 +586,7 @@ The primary evidence was captured directly from the controlled executions and Wa
 | E2 | TC-01 native Wazuh classification = 92057 / level 12 / T1059.001 |
 | E3 | TC-02 command line contains `-enc <BASE64>` |
 | E4 | TC-02 native Wazuh classification = 92027 / level 4 |
-| E5 | custom-rule operational timeline showing V1 behavior, including the false-positive test |
+| E5 | custom-rule operational timeline showing V1 behavior, including the overbroad precision test |
 | E6 | final V2 positive command line contains `-enc <BASE64>` |
 | E7 | final V2 positive classification = 100100 / level 12 / T1059.001 |
 | E8 | final V2 negative command line ends at `-enc` with no payload |
