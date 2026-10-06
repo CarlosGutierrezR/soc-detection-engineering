@@ -18,7 +18,7 @@ Evaluate native Wazuh coverage for PowerShell encoded-command execution, reprodu
 | TC-01 | `-EncodedCommand <BASE64>` | Yes | Yes | `92057` / level 12 | Native encoded-command detection |
 | TC-02 | `-enc <BASE64>` before custom rule | Yes | Yes | `92027` / level 4 | Native classification gap reproduced |
 | TC-02-R1 | `-enc <BASE64>` with custom V1 | Yes | Not required for rule decision | `100100` / level 12 | Positive detection |
-| NEG-V1 | `-enc` with no argument | Yes | Not required for rule decision | `100100` / level 12 | False positive discovered |
+| NEG-V1 | `-enc` with no argument | Yes | Not required for rule decision | `100100` / level 12 | Overbroad precision match relative to rule semantics |
 | TC-02-V2 | `-enc <BASE64>` with tuned V2 | Yes | Not required for rule decision | `100100` / level 12 | Final positive PASS |
 | NEG-V2 | `-enc` with no argument | Yes | Not required for rule decision | `92027` / level 4 | Final negative PASS; no `100100` |
 
@@ -49,6 +49,6 @@ Final V2 controlled set:
 - positives executed: 1;
 - positives detected by `100100`: 1;
 - negatives executed: 1;
-- negatives incorrectly detected by `100100`: 0.
+- negative precision cases incorrectly classified by `100100`: 0.
 
-These numbers describe only the final controlled V2 validation set and must not be interpreted as a production false-positive rate.
+These numbers describe only the final controlled V2 validation set and must not be interpreted as a production false-positive rate or normal-activity noise rate.
