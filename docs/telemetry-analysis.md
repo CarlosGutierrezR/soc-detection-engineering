@@ -49,7 +49,7 @@ Therefore, `-EncodedCommand` matched the native high-severity rule while `-enc` 
 
 The first custom rule matched `-enc` followed by whitespace or end-of-line.
 
-It correctly detected valid `-enc <BASE64>` activity, but it also alerted on `-enc` with no argument. That execution failed in PowerShell, so this was treated as a false positive for the intended use case.
+It correctly detected valid `-enc <BASE64>` activity, but it also alerted on `-enc` with no argument. That execution failed before any encoded payload could be supplied. The match is therefore documented as an overbroad precision result relative to the rule description. The empty `-enc` invocation may still be suspicious; the issue is semantic precision, not a claim that the activity is benign.
 
 ### V2
 
@@ -66,4 +66,4 @@ Observed result:
 
 LAB-DET-001 demonstrates the complete engineering chain:
 
-telemetry -> native coverage assessment -> reproducible gap -> root-cause inspection -> custom rule -> false-positive discovery -> tuning -> positive and negative revalidation.
+telemetry -> native coverage assessment -> reproducible gap -> root-cause inspection -> custom rule -> precision issue discovery -> tuning -> positive and negative revalidation.
