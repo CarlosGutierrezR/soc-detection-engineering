@@ -31,7 +31,7 @@
 
 ## ⚡ Resumen en 60 segundos
 
-| | |
+| Aspecto | Detalle |
 |---|---|
 | **Pregunta** | Si un atacante usa `-enc` (alias corto) en lugar de `-EncodedCommand`, ¿Wazuh lo detecta igual? |
 | **Hallazgo** | **No.** La telemetría llega completa, pero `-enc` solo recibe la regla genérica `92027` (nivel 4) en vez de la específica `92057` (nivel 12). |
@@ -201,7 +201,7 @@ Lista completa: [docs/limitations.md](docs/limitations.md)
 .
 ├── assets/                  gráficos del README
 ├── detection-rules/         regla Wazuh 100100 (V2)
-├── docs/                    caso de estudio, arquitectura, entorno, limitaciones, plan V3, revisión upstream
+├── docs/                    caso de estudio, entorno, limitaciones, plan V3
 ├── evidence/                procedencia y evidencia saneada
 ├── tests/                   procedimientos de prueba y pruebas de contrato PCRE2
 └── .github/workflows/       CI (XML + PCRE2)
