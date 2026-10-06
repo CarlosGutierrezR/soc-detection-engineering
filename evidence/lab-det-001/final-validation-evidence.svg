@@ -5,10 +5,10 @@ text{font-family:Arial,sans-serif;fill:#17212b}.title{font-size:30px;font-weight
 <rect width="1200" height="760" fill="white"/>
 <text x="40" y="55" class="title">LAB-DET-001 — Custom rule tuning and final validation</text>
 <rect x="40" y="95" width="1120" height="175" rx="14" class="box"/>
-<text x="70" y="140" class="h">V1 — gap corrected, but false positive discovered</text>
+<text x="70" y="140" class="h">V1 — gap corrected, but precision issue discovered</text>
 <text x="70" y="180" class="mono">Pattern: powershell.exe ... -enc (whitespace OR end-of-line)</text>
 <text x="70" y="218" class="b">Valid -enc &lt;BASE64&gt; -> 100100 / Level 12</text>
-<text x="600" y="218" class="b bad">Empty -enc -> 100100 / Level 12 (false positive)</text>
+<text x="600" y="218" class="b bad">Empty -enc -> 100100 / Level 12 (overbroad match)</text>
 
 <rect x="40" y="305" width="540" height="365" rx="14" class="box"/>
 <text x="70" y="350" class="h">V2 positive — TC-02-V2</text>
@@ -23,7 +23,7 @@ text{font-family:Arial,sans-serif;fill:#17212b}.title{font-size:30px;font-weight
 <text x="650" y="395" class="mono">powershell.exe -NoProfile -enc</text>
 <text x="650" y="455" class="rule">92027 / Level 4</text>
 <text x="650" y="505" class="b">Custom rule 100100 absent</text>
-<text x="650" y="545" class="b">V1 false positive removed</text>
+<text x="650" y="545" class="b">V1 overbroad match removed</text>
 <text x="650" y="615" class="h ok">PASS</text>
 <text x="40" y="725" class="b">Derived from primary Wazuh screenshots captured during the controlled tests; operational identifiers removed.</text>
 </svg>
