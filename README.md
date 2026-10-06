@@ -68,7 +68,7 @@ The rule intentionally keeps `parentImage = powershell.exe` to preserve parity w
 GitHub Actions validates:
 
 - XML well-formedness;
-- PCRE2 positive/negative contract cases for the current V2 regex.
+- PCRE2 positive/negative contract cases for the current V2 regex;\n- documented V2 coverage-boundary cases that must remain outside V2 until V3 is actually validated.
 
 These CI checks do not replace Wazuh's rule engine. Reproducible `wazuh-logtest` captures are still a pending evidence-hardening item.
 

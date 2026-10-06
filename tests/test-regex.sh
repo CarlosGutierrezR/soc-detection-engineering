@@ -16,18 +16,42 @@ negative=(
   'powershell.exe -NoProfile -enc INVALID_*'
 )
 
+# Documented V2 coverage boundaries. These strings are not promoted to
+# "expected detections": endpoint acceptance and Wazuh V3 behavior remain
+# unvalidated. CI deliberately proves that the current V2 regex does NOT
+# claim coverage for them.
+known_v2_gap=(
+  'powershell.exe -NoProfile -encod VwByAGkAdABlAA=='
+  'powershell.exe -NoProfile -encodedc VwByAGkAdABlAA=='
+  'powershell.exe -NoProfile -encodedco VwByAGkAdABlAA=='
+  'powershell.exe -NoProfile -encodedcom VwByAGkAdABlAA=='
+  'powershell.exe -NoProfile -encodedcomm VwByAGkAdABlAA=='
+  'powershell.exe -NoProfile -encodedcomma VwByAGkAdABlAA=='
+  'powershell.exe -NoProfile -encodedcomman VwByAGkAdABlAA=='
+  'powershell.exe -NoProfile /enc VwByAGkAdABlAA=='
+  'powershell.exe -NoProfile -enc "VwByAGkAdABlAA=="'
+)
+
 for sample in "${positive[@]}"; do
   if ! printf '%s\n' "$sample" | pcre2grep -q "$pattern"; then
-    echo "Expected positive did not match: $sample" >&2
+    echo "Expected V2 positive did not match: $sample" >&2
     exit 1
   fi
 done
 
 for sample in "${negative[@]}"; do
   if printf '%s\n' "$sample" | pcre2grep -q "$pattern"; then
-    echo "Expected negative matched: $sample" >&2
+    echo "Expected V2 negative matched: $sample" >&2
     exit 1
   fi
 done
 
-echo "PCRE2 contract tests passed."
+for sample in "${known_v2_gap[@]}"; do
+  if printf '%s\n' "$sample" | pcre2grep -q "$pattern"; then
+    echo "Documented V2 boundary unexpectedly matched; review V3 scope: $sample" >&2
+    exit 1
+  fi
+done
+
+echo "PCRE2 V2 contract tests passed."
+echo "Documented V2 coverage boundaries remain outside the current regex."
