@@ -1,0 +1,41 @@
+{
+  "_provenance": "Sanitized from the real Wazuh alerts.json record captured for TC-02 before the custom rule. Operational identifiers were replaced or removed.",
+  "rule": {
+    "level": 4,
+    "description": "Powershell process spawned powershell instance",
+    "id": "92027",
+    "mitre": {
+      "id": ["T1059.001"],
+      "tactic": ["Execution"],
+      "technique": ["PowerShell"]
+    },
+    "groups": ["sysmon", "sysmon_eid1_detections", "windows"]
+  },
+  "agent": {
+    "id": "<REDACTED>",
+    "name": "<WINDOWS-ENDPOINT>",
+    "ip": "<PRIVATE-IP>"
+  },
+  "manager": {
+    "name": "<WAZUH-MANAGER>"
+  },
+  "decoder": {
+    "name": "windows_eventchannel"
+  },
+  "data": {
+    "win": {
+      "system": {
+        "providerName": "Microsoft-Windows-Sysmon",
+        "eventID": "1",
+        "channel": "Microsoft-Windows-Sysmon/Operational",
+        "computer": "<WINDOWS-ENDPOINT>"
+      },
+      "eventdata": {
+        "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "commandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -enc <BASE64>",
+        "parentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+      }
+    }
+  },
+  "location": "EventChannel"
+}
