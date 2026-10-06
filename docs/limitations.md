@@ -1,17 +1,19 @@
 # LAB-DET-001 — Limitations
 
-The final rule is deliberately narrow. Its current validation supports only the behavior demonstrated in the controlled SOC lab.
-
-Known limitations:
+The final V2 rule is deliberately narrow. Its validation supports only behavior demonstrated in the controlled SOC lab.
 
 - The rule is validated for Windows PowerShell process creation represented by Sysmon Event ID 1.
-- It requires the parent image to end in `powershell.exe`.
-- It targets the exact short alias `-enc`; other aliases remain dependent on native coverage or future engineering work.
-- The Base64 expression is heuristic. It checks the character set, minimum length, and optional padding, but does not prove that the argument decodes successfully or represents UTF-16LE PowerShell content.
-- The rule does not attempt to detect encoded content passed through other shells, interpreters, process-launch chains, script hosts, or alternative PowerShell implementations.
+- The parent-process requirement ends in `powershell.exe` because the rule intentionally preserves parity with native Wazuh rule `92057`. This excludes launches from other parents and must not be interpreted as evidence that those chains are benign.
+- V2 targets the exact short alias `-enc`. Technical review identified plausible additional prefixes; those are tracked in `v3-research-plan.md` and remain unvalidated.
+- Microsoft documents both `EncodedArguments` and `EncodedCommand` for Windows PowerShell 5.1. The repository therefore does not assume which longer prefixes are accepted; the actual endpoint must decide through observation.
+- The Base64 expression is heuristic. It checks character shape, minimum length, and optional padding but does not prove successful decoding or UTF-16LE PowerShell semantics.
+- Quoted Base64 arguments, slash-prefixed parameters, Unicode dash variants, and case/prefix variants outside current V2 coverage require separate validation.
 - Only a small controlled test set was used. No production-scale false-positive rate is claimed.
-- Event-to-alert latency was not included as a project metric because a repeatable measurement set was not collected.
-- PowerShell Event ID 4104 was confirmed locally for the controlled tests, but the use case's final Wazuh detection logic is based on Sysmon Event ID 1.
-- Future Wazuh ruleset updates may add native coverage for `-enc`; the custom rule must be reviewed after upgrades to avoid redundant detections.
+- No sustained normal-activity observation period has yet been measured for this rule.
+- Event-to-alert latency was not measured with a repeatable sample set.
+- PowerShell Event ID 4104 was confirmed locally for the controlled tests; LAB-DET-001 does not claim ingestion of those exact 4104 events into Wazuh.
+- Reproducible `wazuh-logtest` captures are still pending evidence hardening.
+- Future Wazuh ruleset updates may add native coverage and make the custom rule redundant.
+- The exact Windows PowerShell version from `$PSVersionTable` was not captured during the original run and remains a pending environment-evidence item.
 
-The current result should therefore be described as a validated lab detection for a specific observable gap, not universal PowerShell encoded-command coverage.
+The current result is therefore a validated lab detection for a specific observed Wazuh 4.14.7 ruleset gap, not universal PowerShell encoded-command coverage.
