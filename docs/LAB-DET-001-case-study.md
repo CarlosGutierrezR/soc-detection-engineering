@@ -1,6 +1,6 @@
 # LAB-DET-001 — PowerShell Encoded Execution Detection Engineering Case Study
 
-> **Status:** Functionally validated in the controlled SOC lab.  
+> **Status:** V2 functionally validated in the controlled SOC lab; evidence hardening and V3 research remain open.  
 > **Primary platform:** Wazuh + Sysmon + Windows PowerShell.  
 > **ATT&CK:** T1059.001 — PowerShell.  
 > **Final custom rule:** 100100 / level 12.
@@ -26,7 +26,7 @@ problem
 -> native coverage comparison
 -> root-cause inspection
 -> custom rule V1
--> false-positive discovery
+-> precision issue discovered
 -> tuning V2
 -> positive/negative revalidation
 -> documentation
@@ -44,8 +44,8 @@ LAB-DET-001 reused the permanent SOC lab. No dedicated lab was created for this 
 flowchart LR
     A[SOC Analyst Workstation] -->|HTTPS / investigation| W[Wazuh Dashboard + Manager]
     E[Windows Endpoint] -->|Wazuh Agent| W
-    E -->|Sysmon Event ID 1| T[Endpoint telemetry]
-    E -->|PowerShell Event ID 4104| T
+    E -->|Sysmon Event ID 1| T[Telemetry sent to Wazuh]
+    E --> P[PowerShell Event ID 4104<br/>confirmed locally]
     T --> W
     W --> N[Native Wazuh rules]
     W --> C[Custom detection rules]
@@ -97,8 +97,9 @@ A controlled PowerShell child process launched with an encoded command should:
 
 1. generate Sysmon Event ID 1;
 2. generate PowerShell Event ID 4104 locally;
-3. reach Wazuh through the existing Windows event-channel pipeline;
-4. receive equivalent encoded-command classification regardless of whether the command uses `-EncodedCommand` or `-enc`.
+3. have the Sysmon process-creation event reach Wazuh through the existing Windows event-channel pipeline;
+4. use local PowerShell Event ID 4104 only as supporting endpoint evidence unless Wazuh ingestion of that exact test event is separately demonstrated;
+5. receive equivalent encoded-command classification regardless of whether the command uses `-EncodedCommand` or `-enc`.
 
 ### Decision rule
 
@@ -422,7 +423,7 @@ rule.level: 12
 
 V1 detected the token `-enc`, but did not prove the presence of an encoded argument.
 
-This was treated as a **false positive for the intended use case**.
+This was treated as an **overbroad match / precision failure relative to the rule semantics**. The empty `-enc` invocation can still be suspicious operationally; the problem is that a rule claiming encoded-command execution should not assert that an encoded payload was present when it was not.
 
 The rule was therefore not considered complete simply because it fired.
 
@@ -522,6 +523,12 @@ The false positive introduced by V1 was corrected.
 
 ## 17. Final rule
 
+### Parent-process scope
+
+The final rule retains the `parentImage = powershell.exe` condition intentionally because native rule `92057` uses the same parent constraint. LAB-DET-001 was designed as a narrow remediation of that specific native coverage gap, not as universal PowerShell process-launch detection.
+
+This means launches from other parents such as `cmd.exe`, WMI, `wscript.exe`, or other process chains remain outside the validated scope and require separate use cases.
+
 The portfolio copy of the final rule is stored in:
 
 `detection-rules/wazuh-rules.xml`
@@ -544,26 +551,18 @@ Final logic:
 
 ---
 
-## 18. Final results matrix
+## 18. Results and metrics
 
-| Case | Signal | Wazuh result | Engineering result |
-|---|---|---|---|
-| TC-00 | normal PowerShell | 92027 / level 4 | benign baseline established |
-| TC-01 | `-EncodedCommand <BASE64>` | 92057 / level 12 | native positive |
-| TC-02 | `-enc <BASE64>` before custom rule | 92027 / level 4 | native gap reproduced |
-| TC-02-R1 | valid `-enc <BASE64>` with V1 | 100100 / level 12 | gap corrected |
-| NEG-V1 | `-enc` without argument | 100100 / level 12 | false positive found |
-| TC-02-V2 | valid `-enc <BASE64>` with V2 | 100100 / level 12 | final positive PASS |
-| NEG-V2 | `-enc` without argument with V2 | 92027 / level 4 | final negative PASS |
+The authoritative result matrix is maintained in [coverage-matrix.md](coverage-matrix.md), and the execution procedures are maintained in [../tests/test-cases.md](../tests/test-cases.md).
 
-### Controlled final V2 metrics
+For the final V2 acceptance pair only:
 
-- final positive tests executed: **1**;
-- final positive detections by rule 100100: **1**;
-- final negative tests executed: **1**;
-- final negatives incorrectly classified by rule 100100: **0**.
+- positive cases executed: **1**;
+- positive detections by rule 100100: **1**;
+- negative precision cases executed: **1**;
+- negative precision cases incorrectly classified by rule 100100: **0**.
 
-These are controlled lab counts only. They are **not** presented as a production false-positive rate.
+These counts describe only that controlled acceptance pair. They are not a production false-positive rate.
 
 ---
 
@@ -593,7 +592,9 @@ The primary evidence was captured directly from the controlled executions and Wa
 | E8 | final V2 negative command line ends at `-enc` with no payload |
 | E9 | final V2 negative classification = 92027 / level 4; custom 100100 absent |
 
-Public visual summaries are maintained in the evidence folder. Raw screenshots are retained outside the public repository because they contain operational lab metadata that is unnecessary for portfolio review.
+The evidence folder includes presentation summaries plus a sanitized JSON derived from the real TC-02 `alerts.json` record. The SVGs are not presented as primary technical evidence.
+
+Raw screenshots are retained outside the public repository because they contain operational lab metadata. Reproducible `wazuh-logtest` captures are still pending and are explicitly tracked as evidence hardening rather than silently claimed as complete.
 
 ---
 
@@ -605,8 +606,8 @@ The project deliberately avoids claims that were not measured.
 - No production false-positive rate is claimed.
 - Event-to-alert latency was not measured with a repeatable sample set.
 - The Base64 pattern is syntactic/heuristic; it does not decode the value.
-- The rule targets the exact `-enc` alias.
-- The parent process condition requires `powershell.exe`.
+- The rule targets the exact `-enc` alias. A broader V3 prefix hypothesis is documented but not validated.
+- The parent process condition requires `powershell.exe`; this is intentional parity with native rule 92057, not a claim that other parent processes are benign.
 - The final Wazuh detection is based on Sysmon Event ID 1; local 4104 presence supports telemetry analysis but is not part of custom rule logic.
 - Future Wazuh ruleset updates must be reviewed because native coverage may change and make the custom rule redundant.
 
@@ -629,7 +630,8 @@ LAB-DET-001 satisfies the project-level functional requirements demonstrated in 
 - false positive found and tuned;
 - ATT&CK mapping documented;
 - limitations documented;
-- sanitized evidence prepared for portfolio review.
+- sanitized evidence prepared for portfolio review;
+- remaining evidence-hardening work (`wazuh-logtest`) and V3 research are explicitly tracked as pending.
 
 ---
 
@@ -644,9 +646,9 @@ It demonstrates the ability to:
 - validate native SIEM coverage before adding rules;
 - inspect the real detection logic to find root cause;
 - make a reversible Wazuh change;
-- identify a false positive introduced by the first implementation;
+- identify an overbroad precision match introduced by the first implementation;
 - tune the rule using observed behavior;
 - perform positive and negative revalidation;
 - document what was proven and what was not.
 
-That engineering process is the primary deliverable of this use case.
+That engineering process is the primary deliverable of this use case. Environment/version details are recorded in [environment.md](environment.md), and unvalidated V3 work is isolated in [v3-research-plan.md](v3-research-plan.md).

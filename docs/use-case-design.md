@@ -33,7 +33,7 @@ A custom rule was added rather than modifying the native Wazuh ruleset.
 The final rule:
 
 - requires Sysmon Event ID 1 through `sysmon_event1`;
-- requires the parent image to end in `powershell.exe`;
+- requires the parent image to end in `powershell.exe` to preserve parity with native rule `92057`; this intentionally excludes other parent processes from the validated scope;
 - requires `-enc` followed by a Base64-looking argument of at least eight characters;
 - maps to MITRE ATT&CK `T1059.001 — PowerShell`.
 
@@ -45,5 +45,9 @@ See:
 
 - `../detection-rules/wazuh-rules.xml`
 - `validation-plan.md`
-- `../tests-or-validation/test-cases.md`
+- `../tests/test-cases.md`
 - `limitations.md`
+
+## Broader-prefix scope
+
+V2 addresses the exact observed `-enc` gap. A broader V3 prefix hypothesis is documented separately and remains unvalidated; it is not part of the current rule claim.

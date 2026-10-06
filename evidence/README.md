@@ -1,34 +1,42 @@
 # Evidence — LAB-DET-001
 
-This directory documents the evidence chain for the use case.
+## Evidence hierarchy
 
-## Publication model
+1. **Primary lab observations:** real controlled executions, Wazuh Document Details, and the real `alerts.json` record captured during TC-02.
+2. **Sanitized technical evidence:** redacted JSON retaining the actual event/rule structure.
+3. **Presentation summaries:** SVGs derived from the primary observations for quick recruiter review.
 
-Primary evidence was captured from the real controlled executions and the Wazuh interface during LAB-DET-001.
+The SVGs are **not** treated as substitutes for primary technical evidence.
 
-The original screenshots contain operational lab metadata such as private addressing, host/user identifiers, GUIDs, hashes, process IDs, timestamps, and internal names. Those raw screenshots are retained outside the public repository.
+## Published evidence
 
-For public portfolio review, this repository publishes **sanitized visual evidence summaries** derived from the primary screenshots:
+- [Sanitized real TC-02 Wazuh alert JSON](lab-det-001/tc02-native-alert-sanitized.json)
+- [Native gap presentation summary](lab-det-001/native-gap-evidence.svg)
+- [Custom-rule validation presentation summary](lab-det-001/final-validation-evidence.svg)
+- [Complete technical case study](../docs/LAB-DET-001-case-study.md)
 
-- [Native gap evidence](lab-det-001/native-gap-evidence.svg)
-- [Custom-rule final validation](lab-det-001/final-validation-evidence.svg)
+## Primary observations represented
 
-The full technical chain is documented in [LAB-DET-001 case study](../docs/LAB-DET-001-case-study.md).
+| ID | Observation |
+|---|---|
+| E1 | TC-01 command line contained `-EncodedCommand <BASE64>` |
+| E2 | TC-01 classification was `92057 / level 12`, T1059.001 |
+| E3 | TC-02 command line contained `-enc <BASE64>` |
+| E4 | TC-02 classification was `92027 / level 4` |
+| E5 | V1 matched both valid `-enc <BASE64>` and an empty `-enc` invocation |
+| E6 | V2 positive used `-enc <BASE64>` |
+| E7 | V2 positive classified as `100100 / level 12`, T1059.001 |
+| E8 | V2 negative ended at `-enc` with no payload |
+| E9 | V2 negative classified as native `92027 / level 4`; custom `100100` absent |
 
-## Evidence manifest
+## Pending reproducible evidence
 
-| ID | Primary observation | Portfolio evidence |
-|---|---|---|
-| E1 | TC-01 Wazuh command line contained `-EncodedCommand <BASE64>` | native gap visual + case study |
-| E2 | TC-01 classified as `92057 / level 12`, T1059.001 | native gap visual |
-| E3 | TC-02 Wazuh command line contained `-enc <BASE64>` | native gap visual + case study |
-| E4 | TC-02 classified as `92027 / level 4` | native gap visual |
-| E5 | V1 produced `100100 / level 12` for valid activity and also for empty `-enc` | final validation visual + case study |
-| E6 | V2 positive used `-enc <BASE64>` | final validation visual |
-| E7 | V2 positive classified as `100100 / level 12`, T1059.001 | final validation visual |
-| E8 | V2 negative used `-enc` with no argument | final validation visual |
-| E9 | V2 negative classified as native `92027 / level 4`, with no `100100` | final validation visual |
+`wazuh-logtest` outputs were **not captured during the original run** and are not fabricated here.
 
-## Integrity rule
+The next evidence-hardening step is to replay sanitized representative events through the actual Wazuh 4.14.7 logtest engine and commit the resulting outputs.
 
-No portfolio screenshot or summary should be treated as evidence of an observation that was not actually produced during the controlled lab run. The written case study and test matrix contain only observed results from LAB-DET-001.
+## Publication policy
+
+Raw screenshots are retained outside the public repository because they contain unnecessary operational metadata such as internal addressing, usernames, GUIDs, hashes, process IDs, and timestamps.
+
+No published artifact should be treated as evidence for an observation that was not actually produced in the controlled lab.
