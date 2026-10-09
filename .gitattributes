@@ -11,3 +11,8 @@
 # Repository metadata
 .gitignore text eol=lf
 .gitattributes text eol=lf
+
+# GitHub language statistics: the Wazuh rule (XML) is the main artifact;
+# the regex test helper is not counted
+detection-rules/*.xml linguist-detectable=true
+tests/*.sh linguist-detectable=false
