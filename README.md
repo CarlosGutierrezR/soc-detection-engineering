@@ -218,6 +218,13 @@ Lista completa: [docs/limitations.md](docs/limitations.md)
 
 ---
 
+## 🔗 Proyectos relacionados
+
+- [soc-threat-hunting-zeek](https://github.com/CarlosGutierrezR/soc-threat-hunting-zeek) · SEC-HUNT-001: hunt de *beaconing* guiado por hipótesis sobre telemetría Zeek del mismo laboratorio.
+- [soc-security-automation](https://github.com/CarlosGutierrezR/soc-security-automation) · SEC-AUTO-001: automatización SOC/SOAR sobre alertas de Wazuh con aprobación del analista.
+
+---
+
 ## 🌐 English summary
 
 **LAB-DET-001** is a hands-on detection engineering case built on a reusable SOC lab (Wazuh 4.14.7, Sysmon, Windows 11).
@@ -244,7 +251,7 @@ Publicado bajo licencia [MIT](LICENSE).
 ---
 
 <p align="center">
-  <b>Carlos Gutiérrez</b> · Ingeniero de Sistemas · Máster en Ciberseguridad<br>
+  <b>Carlos Alberto Gutiérrez Rondón</b> · Cybersecurity & Data Engineer · Máster en Ciberseguridad<br>
   <a href="https://www.linkedin.com/in/carlosgutierrez-rondon/"><img src="https://img.shields.io/badge/LinkedIn-carlosgutierrez--rondon-0a66c2?logo=linkedin&logoColor=white" alt="LinkedIn"></a>
   <a href="https://github.com/CarlosGutierrezR"><img src="https://img.shields.io/badge/GitHub-CarlosGutierrezR-24292f?logo=github&logoColor=white" alt="GitHub"></a>
 </p>
