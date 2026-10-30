@@ -251,7 +251,7 @@ Publicado bajo licencia [MIT](LICENSE).
 ---
 
 <p align="center">
-  <b>Carlos Alberto Gutiérrez Rondón</b> · Cybersecurity & Data Engineer · Máster en Ciberseguridad<br>
+  <b>Carlos Alberto Gutiérrez Rondón</b> · Máster en Ciberseguridad<br>
   <a href="https://www.linkedin.com/in/carlosgutierrez-rondon/"><img src="https://img.shields.io/badge/LinkedIn-carlosgutierrez--rondon-0a66c2?logo=linkedin&logoColor=white" alt="LinkedIn"></a>
   <a href="https://github.com/CarlosGutierrezR"><img src="https://img.shields.io/badge/GitHub-CarlosGutierrezR-24292f?logo=github&logoColor=white" alt="GitHub"></a>
 </p>
